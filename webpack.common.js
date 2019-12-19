@@ -1,4 +1,3 @@
-'use strict'
 const path = require('path')
 const HmtlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')

@@ -1,0 +1,95 @@
+<template>
+    <div>
+        <div class="top">
+            <div class="logo">logo</div>
+            <div class="search">
+                <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </div>
+            <ul class="nav">
+                <li v-for="(n,index) in nav" :key="index"> {{n.title}}</li>
+            </ul>
+        </div>
+        <full-page ref="fullpage" :options="options" id="fullpage">
+            <div class="section section1">
+                F
+            </div>
+            <div class="section section2">
+                s
+            </div>
+            <div class="section section3">
+                F
+            </div>
+            <div class="section section4">
+                s
+            </div>
+        </full-page>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            options: {
+                licenseKey: '',
+                autoScrolling:true,
+                loopTop: true,
+                loopBottom: true,
+                scrollBar: true,
+                sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
+            },
+            nav: [{
+                title: '首页',
+                url: ''
+            },{
+                title: '相册',
+                url: ''
+            }],
+            input: ''
+        }
+    }
+}
+</script>
+
+<style>
+.top {
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px brown solid;
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    line-height: 50px;
+}
+.top > .logo {
+    margin-right: 800px;
+}
+.top > .nav {
+    margin-left: 30px;
+}
+.top > .nav > li {
+    display: inline;
+}
+.section{
+    background-size: cover;
+}
+.section1 {
+    background-color: rosybrown;
+    background-image: url('../img/one.jpeg');
+}
+.section2 {
+    background-color: darkkhaki;
+    background-image: url('../img/two.jpg');
+}
+.section3 {
+    background-color: rosybrown;
+    background-image: url('../img/three.jpg');
+}
+.section4 {
+    background-color: darkkhaki;
+    background-image: url('../img/four.jpeg');
+}
+</style>
