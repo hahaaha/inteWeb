@@ -1,13 +1,12 @@
 import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
 
-let test = Vue.component('test',{
-    render: function(h) {
-        return h(
-            'div', { attrs: { id: 'app' }},['test',h('h1','tt')]
-        )
-    }
-})
+Vue.config.productionTip = false
 
 new Vue({
-    render: h => h(test)
-}).$mount('#app')
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
+  })

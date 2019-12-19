@@ -1,5 +1,12 @@
+'use strict'
 const path = require('path')
 const HmtlWebpackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+function resolve (dir) {
+    console.log(path.join(__dirname, dir))
+    return path.join(__dirname, dir)
+  }
 
 module.exports = {
     entry: './src/index.js',
@@ -7,14 +14,28 @@ module.exports = {
         filename: '[hash].js',
         path: path.resolve(__dirname, 'dist')
     },
+    resolve: {
+        extensions:['.js','.vue'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': resolve('src')
+        }
+    },
     plugins: [
         new HmtlWebpackPlugin({
             template: 'index.html',
             inject: true
-        })
+        }),
+        new VueLoaderPlugin()
     ],
     module: {
         rules: [
+            {
+                test: /\.vue$/,
+                use: [
+                    'vue-loader'
+                ]
+            },
             {
                 test: /\.css$/,
                 use: [
