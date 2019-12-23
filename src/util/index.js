@@ -65,6 +65,6 @@ function VueUseSection() {
  * 2. 如果组件名中有“-”，需要把“—”之后的字母大写
  * @param {string} name 
  */
-function dealName(name) {
+export function dealName(name) {
     return name.charAt(0).toUpperCase() + name.slice(1,name.length-4)
 }
