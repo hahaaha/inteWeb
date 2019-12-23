@@ -26,7 +26,6 @@ import 'element-ui/lib/theme-chalk/index.css' \n`
     let routes = []
 
     files.forEach(function(value) {
-        console.log(value)
         data = data + generateImoportSection(value)
         routes.push({
             path: path.join("/",dealName(value)),
