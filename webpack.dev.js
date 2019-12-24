@@ -1,7 +1,7 @@
 const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
 const portfinder = require('portfinder')
-const createRouter = require('./src/util/index')
+const server = require('./src/server/index')
 
 
 let devServerConfig = merge(common,{
@@ -11,7 +11,7 @@ let devServerConfig = merge(common,{
         contentBase: './dist',
         port: 8803,
         before() {
-            createRouter()
+            server()
             console.log("finish")
         }
     }

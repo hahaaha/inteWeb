@@ -6,7 +6,7 @@
                 <el-input v-model="input" placeholder="请输入内容"></el-input>
             </div>
             <ul class="nav">
-                <li v-for="(n,index) in nav" :key="index"> {{n.title}}</li>
+                <li v-for="(n,index) in siteData" :key="index"> {{n.name}}</li>
             </ul>
         </div>
         <full-page ref="fullpage" :options="options" id="fullpage">
