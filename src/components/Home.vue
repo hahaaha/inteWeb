@@ -6,9 +6,10 @@
                 <el-input v-model="input" placeholder="请输入内容"></el-input>
             </div>
             <ul class="nav">
-                <li v-for="(n,index) in siteData" :key="index"> {{n.name}}</li>
+                <router-link class="navItem" v-for="(n,index) in siteData" :key="index" :to="n.path" > {{n.name}} </router-link> 
             </ul>
         </div>
+        <component :is="currentComponent"></component>
         <full-page ref="fullpage" :options="options" id="fullpage">
             <div class="section section1">
                 F
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import Photo from './Photo'
 export default {
     data() {
         return {
@@ -38,15 +40,16 @@ export default {
                 scrollBar: true,
                 sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
             },
-            nav: [{
-                title: '首页',
-                url: ''
-            },{
-                title: '相册',
-                url: ''
-            }],
             input: ''
         }
+    },
+    computed: {
+        currentComponent() {
+            return "Photo"
+        }
+    },
+    components: {
+        Photo
     }
 }
 </script>
@@ -70,8 +73,8 @@ export default {
 .top > .nav {
     margin-left: 30px;
 }
-.top > .nav > li {
-    display: inline;
+.top > .nav > router-link {
+    cursor: pointer;
 }
 .section{
     background-size: cover;
