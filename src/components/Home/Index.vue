@@ -17,20 +17,7 @@
 export default {
     data() {
         return {
-            options: {
-                licenseKey: '',
-                autoScrolling:true,
-                loopTop: true,
-                loopBottom: true,
-                scrollBar: true,
-                sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#000'],
-            },
             input: ''
-        }
-    },
-    computed: {
-        currentComponent() {
-            return "Photo"
         }
     }
 }
