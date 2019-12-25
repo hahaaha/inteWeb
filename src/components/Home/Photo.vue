@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import one from "../img/one.jpeg"
-import two from "../img/two.jpg"
-import three from "../img/three.jpg"
+import one from "../../img/one.jpeg"
+import two from "../../img/two.jpg"
+import three from "../../img/three.jpg"
 export default {
     data() {
         return {

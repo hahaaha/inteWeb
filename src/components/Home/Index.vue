@@ -9,26 +9,11 @@
                 <router-link class="navItem" v-for="(n,index) in siteData" :key="index" :to="n.path" > {{n.name}} </router-link> 
             </ul>
         </div>
-        <component :is="currentComponent"></component>
-        <full-page ref="fullpage" :options="options" id="fullpage">
-            <div class="section section1">
-                F
-            </div>
-            <div class="section section2">
-                s
-            </div>
-            <div class="section section3">
-                F
-            </div>
-            <div class="section section4">
-                s
-            </div>
-        </full-page>
+        <router-view class="mainView"></router-view>
     </div>
 </template>
 
 <script>
-import Photo from './Photo'
 export default {
     data() {
         return {
@@ -47,9 +32,6 @@ export default {
         currentComponent() {
             return "Photo"
         }
-    },
-    components: {
-        Photo
     }
 }
 </script>
@@ -62,13 +44,16 @@ export default {
     position: fixed;
     top: 0;
     background-color: #fff;
-    z-index: 2;
+    z-index: 100;
     display: flex;
     justify-content: center;
     line-height: 50px;
 }
 .top > .logo {
     margin-right: 800px;
+}
+.mainView{
+    margin-top: 52px;
 }
 .top > .nav {
     margin-left: 30px;
@@ -81,18 +66,18 @@ export default {
 }
 .section1 {
     background-color: rosybrown;
-    background-image: url('../img/one.jpeg');
+    background-image: url('../../img/one.jpeg');
 }
 .section2 {
     background-color: darkkhaki;
-    background-image: url('../img/two.jpg');
+    background-image: url('../../img/two.jpg');
 }
 .section3 {
     background-color: rosybrown;
-    background-image: url('../img/three.jpg');
+    background-image: url('../../img/three.jpg');
 }
 .section4 {
     background-color: darkkhaki;
-    background-image: url('../img/four.jpeg');
+    background-image: url('../../img/four.jpeg');
 }
 </style>

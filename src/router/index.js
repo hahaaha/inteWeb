@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Photo from '@/components/Photo'
 import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
 import VueFullPage from 'vue-fullpage.js'
 import ElementUI from 'element-ui'
@@ -14,8 +15,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      component: Home,
+      children:[{
+        path: 'photo',
+        component: Photo
+      }]
     }
   ]
 })

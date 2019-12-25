@@ -2,7 +2,7 @@ const siteData = require('./siteData')
 const createConfig = require('./createConfig')
 
 module.exports = () => {
-    let data  = siteData()
+    let data  = siteData("Home")
     data = `export default {data() {
         return {
             siteData: ${JSON.stringify(data)}
