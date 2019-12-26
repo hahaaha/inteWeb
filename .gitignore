@@ -3,3 +3,4 @@ dist
 yarn-error.log
 src/config/**
 src/routers
+.DS_Store

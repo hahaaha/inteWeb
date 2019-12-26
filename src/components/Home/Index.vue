@@ -45,26 +45,13 @@ export default {
 .top > .nav {
     margin-left: 30px;
 }
-.top > .nav > router-link {
-    cursor: pointer;
+
+.top > .nav > .navItem {
+    display: inline-block;
+    padding: 0 5px;
 }
-.section{
-    background-size: cover;
-}
-.section1 {
-    background-color: rosybrown;
-    background-image: url('../../img/one.jpeg');
-}
-.section2 {
-    background-color: darkkhaki;
-    background-image: url('../../img/two.jpg');
-}
-.section3 {
-    background-color: rosybrown;
-    background-image: url('../../img/three.jpg');
-}
-.section4 {
-    background-color: darkkhaki;
-    background-image: url('../../img/four.jpeg');
+.top > .nav > .navItem:hover {
+    background-color: royalblue;
+    color: #fff;
 }
 </style>

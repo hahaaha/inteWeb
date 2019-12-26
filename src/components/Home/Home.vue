@@ -28,11 +28,28 @@ export default {
             },
             input: ''
         }
-    },
-    computed: {
-        currentComponent() {
-            return "Photo"
-        }
     }
 }
 </script>
+
+<style>
+.section{
+    background-size: cover;
+}
+.section1 {
+    background-color: rosybrown;
+    background-image: url('../../img/one.jpeg');
+}
+.section2 {
+    background-color: darkkhaki;
+    background-image: url('../../img/two.jpg');
+}
+.section3 {
+    background-color: rosybrown;
+    background-image: url('../../img/three.jpg');
+}
+.section4 {
+    background-color: darkkhaki;
+    background-image: url('../../img/four.jpeg');
+}
+</style>

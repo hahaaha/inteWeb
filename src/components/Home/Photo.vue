@@ -16,8 +16,8 @@ import three from "../../img/three.jpg"
 export default {
     data() {
         return {
-            items: [one,two,three],
-            fit: "fill"
+            items: [one,two,three,one,two],
+            fit: "cover"
         }
     }
 }
@@ -25,18 +25,10 @@ export default {
 <style>
 .showImg {
     width: 33.33333%;
-    height: 420px;
+    height: 270px;
 }
 .el-carousel__item img {
     width: 100%;
     height: auto;
-  }
-
-  .el-carousel__item:nth-child(2n) {
-     background-color: #99a9bf;
-  }
-  
-  .el-carousel__item:nth-child(2n+1) {
-     background-color: #d3dce6;
   }
 </style>
