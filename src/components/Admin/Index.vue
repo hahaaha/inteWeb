@@ -16,12 +16,10 @@
         </el-col>
       </el-row>
     </el-aside>
-    <el-container>
-      <el-header>
-          <div>
-              test
-          </div>
-      </el-header>
+    <el-container style="margin-left: 200px">
+        <el-header class="adminHeader">
+            <div>头像</div>
+        </el-header>
       <el-main>
           <router-view></router-view>
       </el-main>
@@ -29,7 +27,6 @@
   </el-container>
 </template>
 <script>
-import one from "../../img/one.jpeg"
 export default {
   computed: {
       defaultActive() {
@@ -39,36 +36,50 @@ export default {
           return true
       }
   }
-};
+}
 </script>
 
 <style>
 #admin {
-  width: 1100px;
-  margin: 0 auto;
+    width: 1100px;
+    margin: 0 auto;
 }
 #admin > .nav {
-  width: 150px;
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+#admin > .nav > ul {
+    padding-bottom: 50px;
+}
+#admin > .nav > ul > .navItem {
+    list-style: none;
+    padding: 2px 0;
+}
+#admin > .nav > ul > .navItem > a {
+    color: #444;
+}
+#admin > .nav .navItem:hover > a {
+    color: aqua;
+}
+#admin > .pageContent {
+    margin-left: 160px;
+}
+
+.adminHeader {
+    box-shadow: 1px 1px 5px 1px #444;
+    line-height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 1px; 
+}
+.el-aside {
+  overflow: auto;
   height: 100%;
   position: fixed;
   top: 0;
-  bottom: 0;
-  overflow: auto;
-}
-#admin > .nav > ul {
-  padding-bottom: 50px;
-}
-#admin > .nav > ul > .navItem {
-  list-style: none;
-  padding: 2px 0;
-}
-#admin > .nav > ul > .navItem > a {
-  color: #444;
-}
-#admin > .nav .navItem:hover > a {
-  color: aqua;
-}
-#admin > .pageContent {
-  margin-left: 160px;
 }
 </style>
