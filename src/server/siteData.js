@@ -13,7 +13,7 @@ module.exports = (targetPath = {}) => {
 
     files.forEach((value) => {
         let fatherPath = value
-        siteData[value] = []
+        siteData[value] = {}
         let tFiles = fs.readdirSync(path.join(targetPath, value))
         fatherPath = fatherPath === "Home" ? "" : fatherPath
         tFiles.forEach((tFile) => {
@@ -22,15 +22,9 @@ module.exports = (targetPath = {}) => {
                 let temp = {}
                 tFile = dealName(tFile)
                 temp[tFile] = routerLink
-                siteData[value].push(temp)
+                siteData[value][tFile] = routerLink
             }
         })
-        // if(value !== "Index") {
-        //     siteData.push({
-        //         name: value,
-        //         path: path.join("/",fatherPath,value),
-        //     })
-        // }
     })
 
     return siteData

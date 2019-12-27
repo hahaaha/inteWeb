@@ -6,7 +6,7 @@
                 <el-input v-model="input" placeholder="请输入内容"></el-input>
             </div>
             <ul class="nav">
-                <router-link class="navItem" v-for="(n,index) in siteData" :key="index" :to="n.path" > {{n.name}} </router-link> 
+                <router-link class="navItem" v-for="(n,index) in siteData.Home" :key="index" :to="n" > {{index}} </router-link> 
             </ul>
         </div>
         <router-view class="mainView"></router-view>
