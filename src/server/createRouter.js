@@ -96,7 +96,9 @@ function generateImoportSection() {
         tFiles.forEach(function(tFile) {
             if(tFile === "Index.vue") {
                 content = content + `import ${file + dealName(tFile)} from '${path.join(root,tFile)}'\n`
-            } else {
+            } else if(tFile === "Home.vue") {
+                content = content + `import ${file + dealName(tFile)} from '${path.join(root,tFile)}'\n`
+            }else {
                 content = content + `import ${dealName(tFile)} from '${path.join(root,tFile)}'\n`
             }
         })

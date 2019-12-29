@@ -12,7 +12,6 @@ let devServerConfig = merge(common,{
         port: 8803,
         before() {
             server()
-            console.log("finish")
         }
     }
 })

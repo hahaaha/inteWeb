@@ -1,3 +1,4 @@
+const path = require('path')
 /**
  * 将组件名转化为指定形式
  * 1. 首字母需要大写
@@ -7,3 +8,5 @@
 exports.dealName = function(name) {
     return name.charAt(0).toUpperCase() + name.slice(1,name.length-4)
 }
+
+exports.components = path.join(__dirname,"..","components")

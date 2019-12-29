@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: "表格",
   data() {
     return {
       d: []

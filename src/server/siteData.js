@@ -14,18 +14,39 @@ module.exports = (targetPath = {}) => {
     files.forEach((value) => {
         let fatherPath = value
         siteData[value] = {}
-        let tFiles = fs.readdirSync(path.join(targetPath, value))
+        let tFilesPath = path.join(targetPath, value)
+        let tFiles = fs.readdirSync(tFilesPath)
         fatherPath = fatherPath === "Home" ? "" : fatherPath
         tFiles.forEach((tFile) => {
             if (tFile !== "Index.vue") {
-                let routerLink = path.join(path.sep, fatherPath, dealName(tFile))
+                let dtFile = dealName(tFile)
+                let routerLink = path.join(path.sep, fatherPath, dtFile)
                 let temp = {}
-                tFile = dealName(tFile)
-                temp[tFile] = routerLink
-                siteData[value][tFile] = routerLink
+                temp[dtFile] = routerLink
+                if(getName(path.join(tFilesPath,tFile))) {
+                    dtFile = getName(path.join(tFilesPath,tFile))
+                }
+                siteData[value][dtFile] = routerLink
+                
+                // siteData[value]["name"] = getName(path.join(tFilesPath,tFile))
             }
         })
     })
 
     return siteData
+}
+
+function getName(target) {
+    let data = fs.readFileSync(target,"utf8")
+    return matchName(data)
+}
+
+function matchName(data) {
+    let reg = /export default {\s*name:\s*"[\w|\u4e00-\u9fa5]*",/
+    let res = data.match(reg)
+    if(res) {
+        res = res[0].match(/"[\w|\u4e00-\u9fa5]*"/)
+        res = res[0]
+        return res.slice(1,res.length-1)
+    }
 }

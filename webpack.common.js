@@ -3,7 +3,6 @@ const HmtlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 function resolve (dir) {
-    console.log(path.join(__dirname, dir))
     return path.join(__dirname, dir)
   }
 
