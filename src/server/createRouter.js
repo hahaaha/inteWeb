@@ -43,6 +43,8 @@ function generateRouter() {
     let files = ""
     files = fs.readdirSync(target)
     files.forEach(function(file) {
+        // 修复bug，晴空上一个的route的内容
+        route = ""
         if(file === "Home") {
             let tFiles = fs.readdirSync(path.join(target,file)) 
             tFiles.forEach(function(tFile) {
@@ -59,6 +61,8 @@ function generateRouter() {
                 children: [${route}]
             },`
         } else {
+            // 修复bug，晴空上一个的route的内容
+            route = ""
             let tFiles = fs.readdirSync(path.join(target,file)) 
             tFiles.forEach(function(tFile) {
                 if(tFile !== "Index.vue") {
