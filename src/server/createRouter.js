@@ -48,10 +48,11 @@ function generateRouter() {
         if(file === "Home") {
             let tFiles = fs.readdirSync(path.join(target,file)) 
             tFiles.forEach(function(tFile) {
+                let component = tFile === "Home.vue"? file + dealName(tFile) : dealName(tFile)
                 if(tFile !== "Index.vue") {
                 route = route + `{
                     path: "${dealName(tFile)}",
-                    component: ${ dealName(tFile)}
+                    component: ${ component }
                 },\n`
             }
             })
@@ -65,10 +66,11 @@ function generateRouter() {
             route = ""
             let tFiles = fs.readdirSync(path.join(target,file)) 
             tFiles.forEach(function(tFile) {
+                let component = tFile === "Home.vue"? file + dealName(tFile) : dealName(tFile)
                 if(tFile !== "Index.vue") {
                 route = route + `{
                     path: "${dealName(tFile)}",
-                    component: ${ dealName(tFile)}
+                    component: ${ component }
                 },\n`
             }
             })
