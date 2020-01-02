@@ -77,19 +77,34 @@ export default {
       source.forEach(element => {
         data.push(element.author.date)
       })
+      // TODO: 考虑是否直接变成string类型进行比较
+      // TODO: 需要编写一个格式化date的函数
       let temp = data
       data = []
       temp.forEach(element => {
         let num = 0
-        let d = new Date(element)
-        let year = d.getFullYear()
-        let month = d.getMonth() + 1
-        let date = d.getDate()
-        // 表中不存在这个日期
+        if(data.length === 0) {
+          data.push([])
+        }
+        data.forEach(e => {
+          if(compareDate(e,element)) {
+
+          }
+        })
       }) 
     },
+    /**
+     * return boolean
+     */
     compareDate(date1,date2) {
-
+      if(date1.getFullYear() === date2.getFullYear()) {
+        if(date1.getMonth() === date2.getMonth()) {
+          if(date1.getDate() === date2.getDate()) {
+            return true
+          }
+        }
+      }
+      return false
     }
 
   }
