@@ -13,102 +13,121 @@ export default {
   data() {
     return {
       commitNum: 0,
-      lastCommit: 0
+      lastCommit: 0,
+      chartData: []
     };
   },
   created() {
     this.$axios
       .get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
       .then(data => {
-        console.log(data.data);
         this.commitNum = data.data.length;
+        this.chartData = data.data;
         let d = new Date(data.data[0].commit.author.date);
         this.lastCommit = `${d.getFullYear()}年${d.getMonth() +
           1}月${d.getDate()}日`;
-      })
+      });
   },
   mounted() {
-    let commitChart = this.$echarts.init(this.$refs.commitChart);
-    commitChart.setOption({
-      title: {
-        text: "commit次数分布表"
-      },
-      color: ["#3398DB"],
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          // 坐标轴指示器，坐标轴触发有效
-          type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+    let commitChart = this.$echarts.init(this.$refs.commitChart)
+    this.$axios
+      .get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
+      .then(data => {
+        let options = {
+          title: {
+            text: "commit次数分布表"
+          },
+          color: ["#3398DB"],
+          dataset: {
+            source: this.getChartData(data.data)
+          },
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: "category",
+              axisTick: {
+                alignWithLabel: true
+              }
+            }
+          ],
+          yAxis: [
+            {
+              type: "value"
+            }
+          ],
+          series: [
+            {
+              name: "提交次数",
+              type: "bar",
+              barWidth: "60%"
+            }
+          ]
         }
-      },
-      grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          axisTick: {
-            alignWithLabel: true
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: "value"
-        }
-      ],
-      series: [
-        {
-          name: "直接访问",
-          type: "bar",
-          barWidth: "60%",
-          data: [10, 52, 200, 334, 390, 330, 220]
-        }
-      ]
-    })
+
+        commitChart.setOption(options)
+      });
   },
   methods: {
     getChartData(source) {
-      let data = []
+      let data = [];
       source.forEach(element => {
-        data.push(element.author.date)
+        data.push(element.commit.author.date);
       })
-      // TODO: 考虑是否直接变成string类型进行比较
-      // TODO: 需要编写一个格式化date的函数
-      let temp = data
-      data = []
+      let temp = data;
+      data = [];
       temp.forEach(element => {
-        let num = 0
-        if(data.length === 0) {
-          data.push([])
-        }
-        data.forEach(e => {
-          if(compareDate(e,element)) {
-
+        let num = 0;
+        let tag = true;
+        if (data.length === 0) {
+          data.push([this.formateDate(element), 1]);
+        } else {
+          data.some(e => {
+            if (this.compareDate(e[0], this.formateDate(element))) {
+              e[1] = e[1] + 1;
+              tag = false;
+              return true;
+            }
+          });
+          if (tag) {
+            data.push([this.formateDate(element), 1])
           }
-        })
-      }) 
+        }
+      });
+      return data;
     },
     /**
+     * 比较两个日期是否相同
      * return boolean
      */
-    compareDate(date1,date2) {
-      if(date1.getFullYear() === date2.getFullYear()) {
-        if(date1.getMonth() === date2.getMonth()) {
-          if(date1.getDate() === date2.getDate()) {
-            return true
-          }
-        }
-      }
-      return false
+    compareDate(date1, date2) {
+      if (date1 === date2) return true;
+      else return false;
+    },
+    /**
+     * 格式化Date
+     */
+    formateDate(date) {
+      let d = new Date(date);
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let day = d.getDate();
+      let time = `${year}年${month}月${day}日`;
+      return time;
     }
-
   }
-}
+};
 </script>
 <style>
 .adminHome {
