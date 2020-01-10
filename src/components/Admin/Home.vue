@@ -9,6 +9,8 @@
   </div>
 </template>
 <script>
+import { Loading } from 'element-ui'
+let LoadingInstance = Loading.service()
 export default {
   data() {
     return {
@@ -18,6 +20,7 @@ export default {
     };
   },
   created() {
+    
     this.$axios
       .get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
       .then(data => {
@@ -26,7 +29,7 @@ export default {
         let d = new Date(data.data[0].commit.author.date);
         this.lastCommit = `${d.getFullYear()}年${d.getMonth() +
           1}月${d.getDate()}日`;
-      });
+      })
   },
   mounted() {
     let commitChart = this.$echarts.init(this.$refs.commitChart)
@@ -77,6 +80,7 @@ export default {
         }
 
         commitChart.setOption(options)
+        LoadingInstance.close()
       });
   },
   methods: {
