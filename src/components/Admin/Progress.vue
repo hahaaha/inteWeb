@@ -89,9 +89,6 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-.progress_show {
-    
-}
 .progress_show > div {
     width: 400px;
 }
