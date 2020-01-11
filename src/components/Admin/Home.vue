@@ -9,8 +9,6 @@
   </div>
 </template>
 <script>
-import { Loading } from 'element-ui'
-let LoadingInstance = Loading.service()
 export default {
   data() {
     return {
@@ -20,7 +18,7 @@ export default {
     };
   },
   created() {
-    
+    this.$loading()
     this.$axios
       .get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
       .then(data => {
@@ -80,7 +78,7 @@ export default {
         }
 
         commitChart.setOption(options)
-        LoadingInstance.close()
+        this.$loading().close()
       });
   },
   methods: {
