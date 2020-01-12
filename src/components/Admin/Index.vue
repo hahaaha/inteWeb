@@ -1,12 +1,13 @@
 <template>
     <el-container>
-        <el-aside width="200px">
+        <el-aside width="200px" style="background-color:#8854d0">
             <el-row class="tac">
                 <el-col :span="24">
                     <el-menu
                         :default-active="defaultActive"
                         class="el-menu-vertical-demo"
                         :router="isRouter"
+                        background-color="#8854d0"
                     >
                         <el-menu-item :index="n" v-for="(n,index) in siteData.Admin" :key="index">
                             <i class="el-icon-menu"></i>
