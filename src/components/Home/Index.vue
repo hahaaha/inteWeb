@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="top">
-            <div class="logo">logo</div>
+            <div class="logo">
+                <img src="static/logo.png" alt="">
+            </div>
             <div class="search">
                 <el-input v-model="input" placeholder="请输入内容"></el-input>
             </div>
@@ -27,7 +29,7 @@ export default {
 .top {
     width: 100%;
     height: 50px;
-    border-bottom: 2px brown solid;
+    box-shadow: 0 0 9px 0 rgba(0,0,0,0.3);
     position: fixed;
     top: 0;
     background-color: #fff;
@@ -38,6 +40,9 @@ export default {
 }
 .top > .logo {
     margin-right: 800px;
+}
+.top > .logo > img {
+    height: 50px;
 }
 .mainView{
     margin-top: 52px;
