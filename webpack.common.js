@@ -1,6 +1,7 @@
 const path = require('path')
 const HmtlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve (dir) {
     return path.join(__dirname, dir)
@@ -20,6 +21,10 @@ module.exports = {
         }
     },
     plugins: [
+        new CopyWebpackPlugin([{
+            from: "src/img",
+            to: "img/"
+        }]),
         new HmtlWebpackPlugin({
             template: 'index.html',
             inject: true
