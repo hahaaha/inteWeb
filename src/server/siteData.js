@@ -5,10 +5,13 @@ const { dealName } = require('../util')
 /**
  * @param targetPath 目标路径
  * 生成网站元数据
+ * 返回的数据结构
+ * [{name:"",path:"",child:[]}]
  */
 module.exports = (targetPath = {}) => {
     targetPath = path.join(__dirname, "..", "components")
     let files = fs.readdirSync(targetPath)
+    console.log(files)
     let siteData = {}
 
     files.forEach((value) => {
@@ -34,6 +37,18 @@ module.exports = (targetPath = {}) => {
     })
 
     return siteData
+}
+
+function mixin(targetPath = {}) {
+    let end = false
+    targetPath = path.join(__dirname, "..", "components")
+    let files = fs.readFileSync(targetPath)
+    // files.forEach(file) {
+    //     console.log("")
+    //     // if() {
+
+    //     // }
+    // }
 }
 
 function getName(target) {
