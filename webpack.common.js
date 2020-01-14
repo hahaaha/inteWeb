@@ -22,8 +22,8 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin([{
-            from: "src/img",
-            to: "img/"
+            from: "src/static",
+            to: "static/"
         }]),
         new HmtlWebpackPlugin({
             template: 'index.html',
