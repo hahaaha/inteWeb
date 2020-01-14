@@ -22,7 +22,7 @@
             <el-header class="adminHeader">
                 <el-dropdown>
                     <span class="el-dropdown-link">
-                        <el-avatar :src="circleUrl"></el-avatar>
+                        <el-avatar src="static/head.png"></el-avatar>
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>个人信息</el-dropdown-item>
