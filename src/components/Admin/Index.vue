@@ -1,13 +1,14 @@
 <template>
     <el-container>
-        <el-aside width="200px" style="background-color:#8854d0">
+        <el-aside width="200px">
             <el-row class="tac">
                 <el-col :span="24">
                     <el-menu
                         :default-active="defaultActive"
                         class="el-menu-vertical-demo"
                         :router="isRouter"
-                        background-color="#8854d0"
+                        background-color="#52616b"
+                        active-text-color="#c9d6df"
                     >
                         <el-menu-item :index="n" v-for="(n,index) in siteData.Admin" :key="index">
                             <i class="el-icon-menu"></i>
@@ -17,7 +18,7 @@
                 </el-col>
             </el-row>
         </el-aside>
-        <el-container style="margin-left: 200px">
+        <el-container class="admin_mainContent">
             <el-header class="adminHeader">
                 <el-dropdown>
                     <span class="el-dropdown-link">
@@ -55,35 +56,6 @@ export default {
 </script>
 
 <style>
-#admin {
-    width: 1100px;
-    margin: 0 auto;
-}
-#admin > .nav {
-    width: 150px;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    overflow: auto;
-}
-#admin > .nav > ul {
-    padding-bottom: 50px;
-}
-#admin > .nav > ul > .navItem {
-    list-style: none;
-    padding: 2px 0;
-}
-#admin > .nav > ul > .navItem > a {
-    color: #444;
-}
-#admin > .nav .navItem:hover > a {
-    color: aqua;
-}
-#admin > .pageContent {
-    margin-left: 160px;
-}
-
 .adminHeader {
     box-shadow: 1px 1px 5px 1px #444;
     line-height: 60px;
@@ -94,10 +66,21 @@ export default {
 .adminHeader .el-avatar {
     margin-top: 10px;
 }
+.el-container {
+    background-color: #f0f5f9;
+}
+/* .admin_mainContent {
+    position: fixed;
+    z-index: -1;
+    height: 100%;
+} */
+.el-menu {
+    border: hidden;
+}
 .el-aside {
     overflow: auto;
-    height: 100%;
-    position: fixed;
-    top: 0;
+    background-color: #52616b;
+    height: 100vh;
+    border-right: solid 1px #e6e6e6;
 }
 </style>
