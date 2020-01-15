@@ -10,8 +10,8 @@ const { dealName } = require('../util')
  */
 module.exports = (targetPath = {}) => {
     targetPath = path.join(__dirname, "..", "components")
+    console.log(JSON.stringify(getFile(targetPath)))
     let files = fs.readdirSync(targetPath)
-    console.log(files)
     let siteData = {}
 
     files.forEach((value) => {
@@ -39,17 +39,32 @@ module.exports = (targetPath = {}) => {
     return siteData
 }
 
-function mixin(targetPath = {}) {
-    let end = false
-    targetPath = path.join(__dirname, "..", "components")
-    let files = fs.readFileSync(targetPath)
-    // files.forEach(file) {
-    //     console.log("")
-    //     // if() {
-
-    //     // }
-    // }
+function getFile(target,root=path.sep) {
+    let objs = []
+    // let target = path.join(__dirname)
+    let fileStat = fs.statSync(target)
+    if(fileStat.isFile()) {
+        return []
+    }
+    let files = fs.readdirSync(target)
+    files.forEach((file) => {
+        let obj = {}
+        // root = path.join(root,file)
+        obj.name = file
+        let fileStat = fs.statSync(path.join(target,file))
+        if(fileStat.isFile()) {
+            let end = file.indexOf(".")
+            let temp = file.slice(0,end)
+            obj.path = path.join(root,temp)
+        } else {
+            root = path.join(root,file)
+        }
+        obj.child = getFile(path.join(target,file),root)
+        objs.push(obj)
+    })
+    return objs
 }
+
 
 function getName(target) {
     let data = fs.readFileSync(target,"utf8")
