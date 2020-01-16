@@ -46,11 +46,12 @@ export default {
 		};
 	},
 	created() {
-        console.log(this.$router.currentRoute)
 		this.siteData.forEach(value => {
 			if (value.name === "Admin") {
 				console.log(value.child);
-				this.sidebar = value.child
+				this.sidebar = value.child.sort(function(a,b) {
+					return (b.weight - a.weight)
+				})
 			}
 		});
 	},
@@ -88,11 +89,6 @@ export default {
 .el-container {
 	background-color: #f0f5f9;
 }
-/* .admin_mainContent {
-    position: fixed;
-    z-index: -1;
-    height: 100%;
-} */
 .el-menu {
 	border: hidden;
 }
