@@ -10,31 +10,32 @@ const { dealName } = require('../util')
  */
 module.exports = (targetPath = {}) => {
     targetPath = path.join(__dirname, "..", "components")
-    console.log(JSON.stringify(getFile(targetPath)))
-    let files = fs.readdirSync(targetPath)
-    let siteData = {}
+    let siteData = getFile(targetPath)
+    // console.log(JSON.stringify(getFile(targetPath)))
+    // let files = fs.readdirSync(targetPath)
+    // let siteData = {}
 
-    files.forEach((value) => {
-        let fatherPath = value
-        siteData[value] = {}
-        let tFilesPath = path.join(targetPath, value)
-        let tFiles = fs.readdirSync(tFilesPath)
-        fatherPath = fatherPath === "Home" ? "" : fatherPath
-        tFiles.forEach((tFile) => {
-            if (tFile !== "Index.vue") {
-                let dtFile = dealName(tFile)
-                let routerLink = path.join(path.sep, fatherPath, dtFile)
-                let temp = {}
-                temp[dtFile] = routerLink
-                if(getName(path.join(tFilesPath,tFile))) {
-                    dtFile = getName(path.join(tFilesPath,tFile))
-                }
-                siteData[value][dtFile] = routerLink
+    // files.forEach((value) => {
+    //     let fatherPath = value
+    //     siteData[value] = {}
+    //     let tFilesPath = path.join(targetPath, value)
+    //     let tFiles = fs.readdirSync(tFilesPath)
+    //     fatherPath = fatherPath === "Home" ? "" : fatherPath
+    //     tFiles.forEach((tFile) => {
+    //         if (tFile !== "Index.vue") {
+    //             let dtFile = dealName(tFile)
+    //             let routerLink = path.join(path.sep, fatherPath, dtFile)
+    //             let temp = {}
+    //             temp[dtFile] = routerLink
+    //             if(getName(path.join(tFilesPath,tFile))) {
+    //                 dtFile = getName(path.join(tFilesPath,tFile))
+    //             }
+    //             siteData[value][dtFile] = routerLink
                 
-                // siteData[value]["name"] = getName(path.join(tFilesPath,tFile))
-            }
-        })
-    })
+    //             // siteData[value]["name"] = getName(path.join(tFilesPath,tFile))
+    //         }
+    //     })
+    // })
 
     return siteData
 }
@@ -49,17 +50,29 @@ function getFile(target,root=path.sep) {
     let files = fs.readdirSync(target)
     files.forEach((file) => {
         let obj = {}
+
+        // 去除Index.vue这个情况
+        if(file === "Index.vue") {
+            return 
+        }
         // root = path.join(root,file)
         obj.name = file
         let fileStat = fs.statSync(path.join(target,file))
+        let temp = ""
         if(fileStat.isFile()) {
             let end = file.indexOf(".")
             let temp = file.slice(0,end)
+            obj.name = temp
             obj.path = path.join(root,temp)
         } else {
-            root = path.join(root,file)
+            // Home目录下的文件直接使用/作为路由
+            if(file === "Home") {
+                temp = root
+            } else {
+                temp = path.join(root,file)
+            }
         }
-        obj.child = getFile(path.join(target,file),root)
+        obj.child = getFile(path.join(target,file),temp)
         objs.push(obj)
     })
     return objs
