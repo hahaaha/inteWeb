@@ -1,6 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const { dealName } = require('../util')
+const { dealSuffix } = require('../util')
+const config = require("../config.json")
 
 /**
  * @param targetPath 目标路径
@@ -11,38 +13,13 @@ const { dealName } = require('../util')
 module.exports = (targetPath = {}) => {
     targetPath = path.join(__dirname, "..", "components")
     let siteData = getFile(targetPath)
-    // console.log(JSON.stringify(getFile(targetPath)))
-    // let files = fs.readdirSync(targetPath)
-    // let siteData = {}
-
-    // files.forEach((value) => {
-    //     let fatherPath = value
-    //     siteData[value] = {}
-    //     let tFilesPath = path.join(targetPath, value)
-    //     let tFiles = fs.readdirSync(tFilesPath)
-    //     fatherPath = fatherPath === "Home" ? "" : fatherPath
-    //     tFiles.forEach((tFile) => {
-    //         if (tFile !== "Index.vue") {
-    //             let dtFile = dealName(tFile)
-    //             let routerLink = path.join(path.sep, fatherPath, dtFile)
-    //             let temp = {}
-    //             temp[dtFile] = routerLink
-    //             if(getName(path.join(tFilesPath,tFile))) {
-    //                 dtFile = getName(path.join(tFilesPath,tFile))
-    //             }
-    //             siteData[value][dtFile] = routerLink
-                
-    //             // siteData[value]["name"] = getName(path.join(tFilesPath,tFile))
-    //         }
-    //     })
-    // })
 
     return siteData
 }
 
 function getFile(target,root=path.sep) {
     let objs = []
-    // let target = path.join(__dirname)
+
     let fileStat = fs.statSync(target)
     if(fileStat.isFile()) {
         return []
@@ -55,8 +32,18 @@ function getFile(target,root=path.sep) {
         if(file === "Index.vue") {
             return 
         }
-        // root = path.join(root,file)
+
         obj.name = file
+        // 设置权重用来控制排序
+        obj.weight = 0
+        let userWeight = config.admin.weight
+        let userWeightkeys = Object.keys(userWeight)
+        userWeightkeys.forEach((k) => {
+            if(path.join(path.sep,"Admin",k) === path.join(root,dealSuffix(file))) {
+                obj.weight = userWeight[k]
+            }
+        })
+
         let fileStat = fs.statSync(path.join(target,file))
         let temp = ""
         if(fileStat.isFile()) {

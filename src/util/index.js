@@ -9,4 +9,10 @@ exports.dealName = function(name) {
     return name.charAt(0).toUpperCase() + name.slice(1,name.length-4)
 }
 
+exports.dealSuffix = function(file) {
+    let end = file.indexOf(".")
+    let temp = file.slice(0,end)
+    return temp
+}
+
 exports.components = path.join(__dirname,"..","components")
