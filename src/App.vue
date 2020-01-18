@@ -5,8 +5,12 @@
 </template>
 
 <script>
+import config from './config.json'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted() {
+    document.title = config.title
+  }
 }
 </script>
 
