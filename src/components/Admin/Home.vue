@@ -21,15 +21,8 @@ export default {
 		}
 	},
 	created() {
-		this.$axios
-			.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
-			.then(data => {
-				this.commitNum = data.data.length;
-				this.chartData = data.data;
-				let d = new Date(data.data[0].commit.author.date);
-				this.lastCommit = `${d.getFullYear()}年${d.getMonth() +
-					1}月${d.getDate()}日`;
-			})
+		this.getLastCommitTime()
+		this.getCommitNum()
 	},
 	mounted() {
 		let commitChart = this.$echarts.init(this.$refs.commitChart)
@@ -84,6 +77,33 @@ export default {
 			});
 	},
 	methods: {
+		getLastCommitTime() {
+			this.$axios
+				.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
+				.then(data => {
+					this.chartData = data.data
+					let d = new Date(data.data[0].commit.author.date);
+					this.lastCommit = `${d.getFullYear()}年${d.getMonth() +
+						1}月${d.getDate()}日`;
+				})
+		},
+		async getCommitNum() {
+			let n = 1
+			let i = 1
+			let end = 1
+			while (end == 1) {
+				await this.$axios
+					.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev&page=" + i)
+					.then(data => {
+						n = data.data.length
+						if (n == 0) {
+							end = 0
+						}
+					})
+				this.commitNum = this.commitNum + n 
+				i++
+			}
+		},
 		getChartData(source) {
 			let data = [];
 			source.forEach(element => {
