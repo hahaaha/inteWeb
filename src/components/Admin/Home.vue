@@ -82,6 +82,7 @@ export default {
 				.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev")
 				.then(data => {
 					this.chartData = data.data
+					console.log(data.data)
 					let d = new Date(data.data[0].commit.author.date);
 					this.lastCommit = `${d.getFullYear()}年${d.getMonth() +
 						1}月${d.getDate()}日`;
@@ -128,7 +129,8 @@ export default {
 						data.push([this.formateDate(element), 1])
 					}
 				}
-			});
+			})
+			console.log(data)
 			return data;
 		},
 		/**
