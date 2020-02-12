@@ -8,7 +8,8 @@
                 <el-input v-model="input" placeholder="请输入内容"></el-input>
             </div>
             <ul class="nav">
-                <router-link class="navItem" v-for="(n,index) in siteData.Home" :key="index" :to="n" > {{index}} </router-link> 
+                <!-- <el-link v-for="(n,index) in nav" :key="index" :to="n.path"> {{n.name}} </el-link> -->
+                <router-link v-for="(n,index) in nav" :key="index" :to="n.path" > <el-link> {{n.name}} </el-link> </router-link> 
             </ul>
         </div>
         <router-view class="mainView"></router-view>
@@ -19,8 +20,17 @@
 export default {
     data() {
         return {
-            input: ''
+            input: '',
+            nav:''
         }
+    },
+    created() {
+        console.log(this.siteData)
+        this.siteData.forEach(element => {
+            if(element.name === "Home") {
+                this.nav = element.child
+            }
+        });
     }
 }
 </script>
@@ -50,13 +60,9 @@ export default {
 .top > .nav {
     margin-left: 30px;
 }
-
-.top > .nav > .navItem {
-    display: inline-block;
-    padding: 0 5px;
-}
-.top > .nav > .navItem:hover {
-    background-color: royalblue;
-    color: #fff;
+.top > .nav .el-link{
+    margin-right: 6px;
+    font-size: 16px;
+    line-height: normal;
 }
 </style>
