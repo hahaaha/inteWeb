@@ -113,7 +113,8 @@ function generateImoportSection() {
 }
 
 function VueUseSection() {
-    return `Vue.use(Router)
-    Vue.use(VueFullPage)
-    Vue.use(ElementUI) \n`
+    return `
+Vue.use(Router)
+Vue.use(VueFullPage)
+Vue.use(ElementUI) \n`
 }
