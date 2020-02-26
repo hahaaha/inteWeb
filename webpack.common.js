@@ -9,6 +9,9 @@ function resolve (dir) {
 
 module.exports = {
     entry: './src/index.js',
+    node: {
+        fs: "empty"
+    },
     output: {
         filename: '[hash].js',
         path: path.resolve(__dirname, 'dist')
