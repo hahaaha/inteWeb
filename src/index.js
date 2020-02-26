@@ -9,12 +9,14 @@ import axios from 'axios'
 import 'aos/dist/aos.css'
 import Aos from 'aos/dist/aos.js'
 import { Notification } from 'element-ui'
+import { nav } from './config/theme'
 
 Vue.config.productionTip = false
 Vue.mixin(siteData)
 Vue.use(ElementUI)
 Vue.prototype.$echarts = echarts
 Vue.prototype.$axios = axios
+Vue.component("Nav",nav)
 Aos.init()
 // 路由守护
 router.beforeEach((to, from, next) => {
