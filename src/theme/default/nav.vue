@@ -23,7 +23,6 @@ export default {
         }
     },
     created() {
-        console.log(this.siteData)
         this.siteData.forEach(element => {
             if(element.name === "Home") {
                 this.nav = element.child
