@@ -50,6 +50,7 @@ function getFile(target,root=path.sep) {
             let end = file.indexOf(".")
             let temp = file.slice(0,end)
             obj.name = temp
+            temp = temp === "Home" ? "" : temp
             obj.path = path.join(root,temp)
         } else {
             // Home目录下的文件直接使用/作为路由
