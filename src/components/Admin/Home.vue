@@ -18,13 +18,14 @@ export default {
 			commitNum: 0,
 			lastCommit: 0,
 			chartData: [],
+			xData: [],
 			loading: true
 		}
 	},
 	created() {
 		this.getLastCommitTime()
 		this.getCommitNum()
-		this.getCommitData()
+		this.getChartData()
 	},
 	methods: {
 		getLastCommitTime() {
@@ -37,35 +38,31 @@ export default {
 						1}月${d.getDate()}日`;
 				})
 		},
-		loadingChart(data) {
+		loadingChart(data1,data2) {
 			let commitChart = this.$echarts.init(this.$refs.commitChart)
+			console.log(this.xData)
 			let options = {
 				title: {
 					text: "commit次数分布表"
 				},
-				color: ["#3398DB"],
-				dataset: {
-					source: data
-				},
-				tooltip: {
-					trigger: "axis",
-					axisPointer: {
-						// 坐标轴指示器，坐标轴触发有效
-						type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
-					}
-				},
-				grid: {
-					left: "3%",
-					right: "4%",
-					bottom: "3%",
-					containLabel: true
-				},
+				// color: ["#3398DB"],
+				// tooltip: {
+				// 	trigger: "axis",
+				// 	axisPointer: {
+				// 		// 坐标轴指示器，坐标轴触发有效
+				// 		type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+				// 	}
+				// },
+				// grid: {
+				// 	left: "3%",
+				// 	right: "4%",
+				// 	bottom: "3%",
+				// 	containLabel: true
+				// },
 				xAxis: [
 					{
 						type: "category",
-						axisTick: {
-							alignWithLabel: true
-						}
+						data: data1
 					}
 				],
 				yAxis: [
@@ -76,8 +73,9 @@ export default {
 				series: [
 					{
 						name: "提交次数",
-						type: "bar",
-						barWidth: "60%"
+						type: "line",
+						data: data2,
+						smooth: true
 					}
 				]
 			}
@@ -85,64 +83,29 @@ export default {
 			commitChart.setOption(options)
 			this.loading = false
 		},
-		async getCommitNum() {
-			let n = 1
-			let i = 1
-			let end = 1
-			while (end == 1) {
-				await this.$axios
-					.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev&page=" + i)
-					.then(data => {
-						n = data.data.length
-						if (n == 0) {
-							end = 0
-						}
-					})
-				this.commitNum = this.commitNum + n
-				i++
-			}
-		},
-		compareIsSeven(data) {
-			let sevenDay = moment().subtract(7, 'days')
-			let froentTime = data.data[data.data.length - 1].commit.author.date
-			let isSeven = moment(froentTime).isBefore(sevenDay, "days")
-			return isSeven
-		},
-		async getCommitData(i = 1, isSeven = false, commitData = []) {
-			console.log(isSeven)
-			if (isSeven) {
-				console.log(commitData)
-				let ddd = this.getChartData(commitData)
-				this.loadingChart(ddd)
-				return 
-			}
-			let data = await this.$axios
-				.get("https://api.github.com/repos/hahaaha/inteWeb/commits?sha=dev&page=" + i)
-
-			commitData = commitData.concat(data.data)
-
-			isSeven = this.compareIsSeven(data)
-
-			this.getCommitData(i + 1, isSeven, commitData)
+		getCommitNum() {
+			this.$axios
+				.get("https://api.github.com/repos/hahaaha/inteWeb/stats/contributors")
+				.then(data => {
+					this.commitNum = data.data[0].total
+				})
 		},
 		// 将数据格式化为echarts可用的格式
-		getChartData(source) {
-			let data = []
+		getChartData() {
+			let datas = []
 			let nowDate = moment()
-			for (let i = 0; i < 7; i++) {
-				let arr = [nowDate.subtract(1, "days").format("YYYY-MM-DD"), 0]
-				data.push(arr)
-			}
-			data.forEach((e, eIndex) => {
-				source.forEach(ele => {
-					let eleDate = ele.commit.committer.date
-					if (moment(e[0]).isSame(moment(eleDate), "days")) {
-						data[eIndex][1] = data[eIndex][1] + 1
+			this.$axios
+				.get("https://api.github.com/repos/hahaaha/inteWeb/stats/participation")
+				.then(data => {
+					let d = data.data.all
+					for(let i = 0; i < 7 ; i++) {
+						let w = data.data.all[data.data.all.length - i]
+						datas.push(w)
+						this.xData.push(i + "week before")
 					}
+					console.log(datas)
+					this.loadingChart(this.xData,datas)
 				})
-			})
-
-			return data
 		}
 	}
 };
